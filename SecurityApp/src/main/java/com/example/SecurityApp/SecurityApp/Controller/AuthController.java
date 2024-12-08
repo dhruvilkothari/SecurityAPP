@@ -1,5 +1,6 @@
 package com.example.SecurityApp.SecurityApp.Controller;
 
+import com.example.SecurityApp.SecurityApp.Advices.ApiResponse;
 import com.example.SecurityApp.SecurityApp.Dto.UserDto;
 import com.example.SecurityApp.SecurityApp.Service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ public class AuthController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> createUser(@RequestBody(required = true) UserDto userDto){
+    public ResponseEntity<ApiResponse<?>> createUser(@RequestBody(required = true) UserDto userDto){
         return authService.createUser(userDto);
     }
 
-
-
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<?>>loginUser(@RequestBody(required = true) UserDto userDto){
+        return authService.loginUser(userDto);
+    }
 }
