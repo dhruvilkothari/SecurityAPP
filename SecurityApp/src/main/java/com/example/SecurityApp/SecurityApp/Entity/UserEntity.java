@@ -1,5 +1,6 @@
 package com.example.SecurityApp.SecurityApp.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,12 +25,15 @@ public class UserEntity implements UserDetails {
 
     private String  email;
     private String  password;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+
+    private List<PostEntity> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
-
     @Override
     public String getUsername() {
         return this.email;
